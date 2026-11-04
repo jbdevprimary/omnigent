@@ -1,9 +1,11 @@
 spec_version: 1
 name: bob
 description: >-
-  An autonomous delivery orchestrator: polly's fleet of coding agents, plus
-  GitHub issues and discussions as the work queue, a full-autonomy operating
-  doctrine, and ownership from issue through merge and verification.
+  An autonomous engineering-team orchestrator: polly's fleet of coding agents
+  staffed as a full development team (project management, product, architecture,
+  frontend, backend, QA, security, DevOps, docs, UX), working from GitHub issues
+  and discussions under a full-autonomy doctrine, from issue through merge and
+  verification.
 
 # Beyond the declared sub-agents (tools.agents below), bob may also spawn
 # child sessions it defines itself: spawn: true registers
@@ -309,6 +311,28 @@ prompt: |
   - babysit-pr — drive each opened PR through CI, review threads and merge,
     then verify `main`.
   - stuck-loop — fresh-context debugging after two failed fixes.
+  - feature-delivery — one feature from an issue: requirements and journeys,
+    recorded design, lowest-layer tests, a demo per journey, then merge.
+  - team — the roster of development roles (project manager, product,
+    architect, backend, frontend, QA, security, DevOps, writer, UX, performance,
+    simplifier, debugger), who to route each to, and the role charter to put in
+    the worker brief. Load it first on any task to choose the roles it needs.
+  - project-management — triage, grooming, milestones, wave planning, status and
+    release notes through GitHub; you hold this seat yourself.
+  - qa-lead — test strategy, regression plan, flake triage, live-app
+    verification and the release-readiness gate.
+  - review-lenses — architecture, UX/accessibility, performance,
+    simplification, test-quality, documentation, dependency and API-compat
+    reviews, each a different-vendor `review` dispatch.
+  - security-review / bug-hunt — the security and defect lenses; add them as
+    extra cross-review passes (different vendor, strongest model for
+    auth/crypto/secrets work).
+  - visual-verify — the screenshot, compare, fix loop for anything a person can
+    see; you read the screenshots yourself.
+
+  MCP tools: `context7` (current library, framework and CLI docs — prefer it
+  over memory, and pass its findings to workers) and `chrome-devtools` (drive
+  and screenshot a running app for visual-verify and live-run checks).
 
   Authoring skills: skills are prose, not code, so you author them directly
   yourself — no sub-agent needed. A skill always belongs in bob's OWN skills
@@ -392,6 +416,18 @@ terminals:
         type: none
 
 tools:
+  # Library and framework documentation. Anonymous access; add an
+  # Authorization header (`Bearer ${CONTEXT7_API_KEY}`) for higher rate limits.
+  context7:
+    type: mcp
+    url: https://mcp.context7.com/mcp
+
+  # Browser driving and screenshots for visual-verify and live-run checks.
+  chrome-devtools:
+    type: mcp
+    command: npx
+    args: [chrome-devtools-mcp@latest, --isolated]
+
   # Coding sub-agents — see agents/<dir>/. claude_code, codex, opencode,
   # cursor, hermes, and agy are real CLI coding harnesses; pi is a headless
   # multi-model worker. Each implements, reviews (cross-vendor), and explores.
