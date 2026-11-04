@@ -55,8 +55,10 @@ anyone needs to read through.
    updates its existing PR. A new title would spawn a fresh worker with no
    memory of the task. Then loop to step 1.
 6. When gates are green AND there are zero blocking issues, the PR passes
-   review — mark it ready in the registry (with its PR URL) and leave it for
-   the human to merge. polly does NOT merge it.
+   review. It is not done yet: polly merges it once the rest of the merge bar
+   holds on the current head — required checks green, every review thread
+   resolved, no standing CHANGES_REQUESTED, acceptance demonstrated (see the
+   `fanout` skill, step 5). Record the PR URL and merge status in the registry.
 7. If the contract can't be satisfied after a few loops, stop and escalate to
    the user with specifics.
 

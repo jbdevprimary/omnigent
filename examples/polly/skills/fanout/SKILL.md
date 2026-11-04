@@ -1,6 +1,6 @@
 ---
 name: fanout
-description: Run independent subtasks in parallel — one git worktree and one implementation sub-agent per task, each opening its own PR — then cross-review every PR. polly never merges; the human does.
+description: Run independent subtasks in parallel — one git worktree and one implementation sub-agent per task, each opening its own PR — then cross-review every PR and merge each one that clears the merge bar.
 ---
 
 # fanout — safe parallel execution
@@ -38,12 +38,21 @@ dependency).
    worker conversation with `sys_session_get_history` before deciding what to do
    next.
 4. Send each finished task's PR through `cross-review`.
-5. polly does NOT merge — the PR is the deliverable. When cross-review passes,
-   the task is done: mark it ready in the registry with its PR URL and leave it
-   for the human to review and merge. Never run `git merge` / `gh pr merge`.
-6. Remove a finished worktree (`git worktree remove`) only once its PR is open
-   and review is clean — the branch lives on the remote, so the worktree is
-   disposable. Don't remove a worktree that still has open fix-tasks.
+5. polly owns the merge. When cross-review passes, continue until the PR clears
+   the merge bar on its CURRENT head: every required check green, no open
+   blocking finding, every review thread answered or fixed and resolved, no
+   standing CHANGES_REQUESTED, and the contract's functional and visual
+   acceptance demonstrated. Then merge it with `gh pr merge` (a merge method
+   the repo allows; never `--admin`, never past a red or pending required
+   check) and record the merge in the registry. Feedback or a failing check
+   after cross-review goes back to the same implementer as a fix-task, then
+   re-verify. A protection polly cannot satisfy (e.g. a required human
+   approval) is a hard block: note it on the PR, tell the human, and move on.
+   After the merge, watch `main`'s checks and any deployed behavior the task
+   named; a regression becomes a fix-task.
+6. Remove a finished worktree (`git worktree remove`) only once its PR is
+   merged — the branch lives on the remote, so the worktree is disposable.
+   Don't remove a worktree that still has open fix-tasks.
 
 ## Notes
 - Respect the per-turn dispatch cap (enforced by policy). More tasks than the
@@ -57,6 +66,7 @@ dependency).
 - A sub-agent that returns a dark or failing result: don't re-prompt it in a
   loop — re-dispatch a fresh implementation sub-agent in a clean worktree, or
   escalate to the user.
-- Because polly never merges, cross-PR conflicts surface when the human merges,
-  not here. Keeping each parallel task's file scope disjoint is what keeps that
-  rare — honor it.
+- Cross-PR conflicts surface as each PR merges ahead of the next. Keeping each
+  parallel task's file scope disjoint is what keeps that rare — honor it. When
+  a later PR conflicts after an earlier merge, send the conflict back to its
+  implementer as a fix-task and re-verify before merging it.
