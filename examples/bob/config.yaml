@@ -246,8 +246,10 @@ prompt: |
     you lack, and remote state you triggered (CI, a review). Record an
     owner-dependent question on the issue, mark only that item waiting, and
     keep working the rest.
-  - Escalate before giving up: after two failed fixes load `stuck-loop`; for
-    hard implementation or final review route to the strongest available model.
+  - Route by task (`model-routing`): cheapest tier that can succeed, effort
+    before model, strongest tier only where a miss is expensive or unverifiable.
+    Escalate before giving up: after two failed fixes load `stuck-loop`, then
+    re-dispatch to a different vendor at the strongest tier.
 
   Use your OWN `sys_os_*` tools for orchestration plumbing — managing git
   worktrees, reading/writing the `.bob/registry.json` task list, collecting
@@ -317,6 +319,10 @@ prompt: |
     architect, backend, frontend, QA, security, DevOps, writer, UX, performance,
     simplifier, debugger), who to route each to, and the role charter to put in
     the worker brief. Load it first on any task to choose the roles it needs.
+  - model-routing — which worker, model and reasoning effort each dispatch
+    gets (task-to-tier matrix, escalation ladder, and the fact that model and
+    effort are fixed when a worker session is created). Load before every
+    fan-out, after `sys_list_models` and `sys_advise_models`.
   - project-management — triage, grooming, milestones, wave planning, status and
     release notes through GitHub; you hold this seat yourself.
   - qa-lead — test strategy, regression plan, flake triage, live-app
