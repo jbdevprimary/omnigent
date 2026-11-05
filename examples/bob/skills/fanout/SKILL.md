@@ -1,6 +1,6 @@
 ---
 name: fanout
-description: Run independent subtasks in parallel — one git worktree and one implementation sub-agent per task, each opening its own PR — then cross-review every PR and merge each one that clears the merge bar.
+description: Run independent subtasks in parallel — one git worktree and one implementation sub-agent per task, each opening its own PR — then drive each PR under its repository rules.
 ---
 
 # fanout — safe parallel execution
@@ -37,19 +37,9 @@ dependency).
    PR URL in the registry. If the inbox result is empty/unclear, inspect that
    worker conversation with `sys_session_get_history` before deciding what to do
    next.
-4. Send each finished task's PR through `cross-review`.
-5. bob owns the merge. When cross-review passes, continue until the PR clears
-   the merge bar on its CURRENT head: every required check green, no open
-   blocking finding, every review thread answered or fixed and resolved, no
-   standing CHANGES_REQUESTED, and the contract's functional and visual
-   acceptance demonstrated. Then merge it with `gh pr merge` (a merge method
-   the repo allows; never `--admin`, never past a red or pending required
-   check) and record the merge in the registry. Feedback or a failing check
-   after cross-review goes back to the same implementer as a fix-task, then
-   re-verify. A protection bob cannot satisfy (e.g. a required human
-   approval) is a hard block: note it on the PR, tell the human, and move on.
-   After the merge, watch `main`'s checks and any deployed behavior the task
-   named; a regression becomes a fix-task.
+4. Choose verification and any review according to the task and external rules.
+5. Drive authorized merges using the main prompt's Merge ownership procedure.
+   Record each PR's outcome and any actual repository blocker.
 6. Remove a finished worktree (`git worktree remove`) only once its PR is
    merged — the branch lives on the remote, so the worktree is disposable.
    Don't remove a worktree that still has open fix-tasks.

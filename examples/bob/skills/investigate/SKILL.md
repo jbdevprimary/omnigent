@@ -35,8 +35,7 @@ repository-specific technical question.
    reports conflict or are incomplete, dispatch a follow-up `explore` task
    rather than resolving the conflict from your own direct inspection.
 5. If the investigation uncovers required code changes, switch to `fanout` /
-   `cross-review`: dispatch an `implement` worker, then verify with the
-   opposite-vendor `review` worker.
+   implementation and verification appropriate to the task and repository rules.
 
 ## Notes
 - The orchestrator may use its own tools only to create task packets, maintain

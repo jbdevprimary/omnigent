@@ -1,12 +1,11 @@
 ---
 name: bug-hunt
-description: A defect lens for cross-review and audits — logic and boundary errors, null handling, resource leaks, races, error-handling gaps, async misuse — traced to a root cause with a minimal verified fix. Load on any non-trivial diff and for focused hunts across a set of files.
+description: A defect lens for cross-review and audits — logic and boundary errors, null handling, resource leaks, races, error-handling gaps, async misuse — traced to a root cause with a minimal verified fix. Use for focused hunts across a diff or set of files.
 ---
 
 # bug-hunt — find the root cause, not the symptom
 
-Dispatch as a `review` (diff) or `explore` (a set of files) worker of a
-different vendor than the implementer. The reviewer edits nothing.
+Dispatch as a `review` (diff) or `explore` (a set of files) worker when delegation helps. The reviewer edits nothing.
 
 ## Brief the reviewer to
 1. **Scan** for failure paths: logic errors and edge cases, null/undefined

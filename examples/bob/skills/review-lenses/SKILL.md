@@ -3,19 +3,16 @@ name: review-lenses
 description: The specialised reviews bob can run on a diff or a design — architecture, UX and accessibility, performance, simplification, test quality, documentation, dependency and supply chain, and API compatibility — each with its brief and report format. Load when choosing review passes for a PR or when a specific kind of review is wanted.
 ---
 
-# review-lenses — specific reviews, each from a different vendor
+# review-lenses — optional focused reviews
 
 Every lens is a `review` dispatch against the saved diff snapshot plus the
-acceptance contract (never the implementer's worktree or transcript), by a
-worker whose vendor differs from the implementer's. Reviewers surface findings
+acceptance contract, performed directly or by a suitable worker. Reviewers surface findings
 and never edit. Security and defects have their own skills (`security-review`,
 `bug-hunt`). Report format for every lens: findings with `severity`
 (blocking / non-blocking / suggestion), `file:line`, evidence, and the fix; end
 with `approved` (true only with no blocking finding).
 
-Pick lenses by what the diff touches; a feature PR normally gets `bug-hunt`,
-the lens for each surface it changes, and `security-review` when it handles
-input, auth, network, files, secrets, dependencies or CI.
+Choose lenses based on the task and applicable external requirements.
 
 ## Architecture
 Do the boundaries hold? Check responsibility split, layering and dependency

@@ -1,6 +1,6 @@
 spec_version: 1
 name: hermes
-description: Hermes Agent coding sub-agent — implements, cross-vendor reviews, or explores a scoped task in its own worktree.
+description: Hermes Agent coding sub-agent — implements, reviews, or explores a scoped task in its own worktree.
 
 # Native Hermes Agent (Nous Research) TUI harness: runs in its own terminal the
 # human can open in the UI's Subagents panel and TAKE OVER. Hermes' in-terminal
@@ -24,12 +24,8 @@ prompt: |
     typecheck for the code you touched.
   - When you report test results, include the exact command and file set. If
     you mention counts, distinguish collected test cases from test functions.
-  - Co-sign every commit you author: end each commit message with a blank line
-    followed by this exact trailer as its final line —
-    `Co-authored-by: omnigent <noreply@omnigent.ai>`
-  - When green, push your task branch and open a PR with `gh pr create` (clear
-    title, what changed, how you verified). Never push to a protected branch
-    (e.g. main) or force-push — open a PR and let it be reviewed/merged.
+  - Follow the applicable repository rules and the authorized worker brief for
+    commits, branches, publishing and merges.
 
   REVIEW — verify another agent's diff (you are given the diff + the acceptance
   contract):

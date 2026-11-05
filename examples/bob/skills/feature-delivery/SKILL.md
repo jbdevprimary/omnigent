@@ -56,4 +56,4 @@ why, with the command and error, and lists manual steps a person can follow.
 Opened ready, one Conventional Commit per issue, `Closes #<n>`. Sections: summary
 (motivation, then change), the design and rejected alternatives, journey
 coverage, test plan with exact commands and file sets, and the demo. Then
-`cross-review` and `babysit-pr` through merge.
+`babysit-pr` through merge; use review when useful or externally required.

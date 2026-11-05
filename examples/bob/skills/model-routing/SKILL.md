@@ -39,8 +39,8 @@ description: Choose the worker, model and reasoning effort for each dispatch —
 | Issue triage evidence, label and duplicate checks | Fast | low–medium | |
 | Routine implementation, scoped tests, docs, translations | Strong | medium–high | `codex` for narrow changes, `claude_code` for multi-file |
 | Hard implementation, migrations, concurrency, cross-layer work | Strong → Strongest | high–xhigh | |
-| Architecture and public-API design review | Strongest | high | different vendor than the designer |
-| Standard cross-review (`bug-hunt`, test quality, docs, simplify) | Strong | medium–high | different vendor than the implementer |
+| Architecture and public-API design review | Strongest | high | if useful |
+| Standard cross-review (`bug-hunt`, test quality, docs, simplify) | Strong | medium–high | if useful |
 | `security-review` on auth, crypto, secrets, network, CI | Strongest | high–xhigh | |
 | UX and visual review where likeness or feel is the bar | Strongest | high | with `visual-verify`; you read the screenshots |
 | Stuck bug after two failed fixes (`stuck-loop`) | Strongest | xhigh | fresh context, ruled-out list required |
@@ -50,12 +50,8 @@ description: Choose the worker, model and reasoning effort for each dispatch —
 ## Bias rules
 1. Start at the cheapest tier that can plausibly succeed; raise the EFFORT
    before raising the MODEL; raise the model before adding more attempts.
-2. Reviewers match or exceed the implementer's tier on risky changes, and are
-   always a different vendor.
-3. Diversify vendors for independence: spread cross-review across the available
-   workers rather than reusing one, and use `pi` when a specific gateway model
-   is wanted.
-4. Spend the strongest tier where a miss is expensive or unverifiable:
+2. Choose reviewer model and vendor based on task needs and external rules.
+3. Spend the strongest tier where a miss is expensive or unverifiable:
    irreversible, architectural or public-API choices, security-sensitive code,
    and visual or voice quality you cannot measure.
 

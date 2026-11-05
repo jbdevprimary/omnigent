@@ -9,12 +9,11 @@ bob has seven workers (`claude_code`, `codex`, `opencode`, `cursor`, `hermes`,
 `agy`, `pi`) and four dispatch purposes (`implement`, `review`, `explore`,
 `search`). A **role** is a charter written into the worker's brief, not a
 separate agent. Every task names the role it wants; one worker can take
-different roles on different tasks, but the reviewer of a piece of work is
-always a different vendor than its implementer.
+different roles on different tasks. Choose any review according to external rules and task needs.
 
 bob itself holds the **engineering manager / project manager** seat (it plans,
 sequences, writes to issues and discussions, merges, and reports) and the
-**final accountability** for visuals and technical decisions. It writes no code.
+**final accountability** for visuals and technical decisions.
 
 ## Roster and routing
 | Role | Purpose | Skill to load | Typical worker |
@@ -26,7 +25,7 @@ sequences, writes to issues and discussions, merges, and reports) and the
 | Frontend developer | UI, state, accessibility, responsive | role brief below, `visual-verify` | `claude_code`, `cursor` |
 | Full-stack / integration | cross-layer feature slices | both briefs | `claude_code` |
 | QA lead / SDET | test strategy, regression, release gate | `qa-lead` | `explore` to plan, `implement` to write |
-| Security engineer | threat review, hardening | `security-review` | different vendor, strongest model |
+| Security engineer | threat review, hardening | `security-review` | strongest model |
 | DevOps / release | CI, build, deploy, rollback, observability | role brief below, `qa-lead` | `codex`, `claude_code` |
 | Tech writer | docs, READMEs, changelog entries, migration guides | role brief below | bob itself for prose, or any worker |
 | UX / accessibility reviewer | flows, copy, a11y, responsive, states | `review-lenses` (ux), `visual-verify` | `review` worker |
@@ -60,12 +59,8 @@ sequences, writes to issues and discussions, merges, and reports) and the
 
 ## Composing a team for a task
 1. Load `github-alignment` and `work-loop`; read the issue and discussions.
-2. Choose roles from the table: a feature usually needs product (requirements),
-   architect (design review), the implementing developers, QA, a security and a
-   defect lens, a UX lens when anything is visible, a writer, and a release check.
-3. Sequence by dependency: requirements → design → tests → implementation →
-   review lenses → fixes → `babysit-pr` → merge → `qa-lead` post-merge checks.
-   Run independent implementations in parallel via `fanout`.
+2. Choose roles and sequence the work as needed. Follow repository rules for
+   verification, review, and merging. Use fanout for independent work.
 4. Respect the per-turn dispatch cap: dispatch in waves; review lenses for one
    PR can run together as separate `review` dispatches on the same saved diff.
 5. Record the role plan on the issue so a fresh session can resume from GitHub.

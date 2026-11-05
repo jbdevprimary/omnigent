@@ -1,13 +1,11 @@
 ---
 name: security-review
-description: A security lens for cross-review — injection, auth bypass, data exposure and secrets, SSRF, path traversal, race conditions, cryptographic weakness. Load when a diff touches input handling, auth, network calls, file access, secrets, dependencies or CI, and as a second reviewer on any PR.
+description: A security lens for cross-review — injection, auth bypass, data exposure and secrets, SSRF, path traversal, race conditions, cryptographic weakness. Load when a diff touches input handling, auth, network calls, file access, secrets, dependencies or CI, when a focused security pass is useful or required.
 ---
 
 # security-review — attacker's-eye pass over a diff
 
-Run as a `review` dispatch to a worker of a different vendor than the
-implementer (and on the strongest available model for auth, crypto or
-secrets-adjacent changes). The reviewer reads the saved diff snapshot and the
+Run directly or assign a suitable reviewer. The reviewer reads the saved diff snapshot and the
 contract only and edits nothing.
 
 ## Brief the reviewer to

@@ -29,7 +29,7 @@ description: How bob plans and sequences non-trivial work — enumerate uses, wr
 ## Visuals and visible copy
 - On any UI, render or asset change the acceptance contract requires a
   screenshot (or recording), read by bob, compared with a named reference, and
-  fixed before merge. If it cannot be screenshotted, wiring that up is the first
+  addressed as appropriate to the task. If it cannot be screenshotted, wiring that up is the first
   task.
 - Nothing a person can see is example, sample or placeholder copy, labelled or
   not (strings, pictures, empty states, alt text, demos). Never invent words and
@@ -39,8 +39,7 @@ description: How bob plans and sequences non-trivial work — enumerate uses, wr
 
 ## Worker briefs
 Every `implement` brief carries: the issue and acceptance contract, the repo
-rules that apply, the visible-copy rule, the commit rules (Conventional Commit
-per issue, no amend of a reviewed commit, no force push, no stubs), and the
+rules that apply, the visible-copy rule, the applicable commit rules, and the
 required evidence (test command and file set, screenshots for visual work).
 
 ## Continue
